@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2AE2E09F274AF1C400BCEF90 /* matrixView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AE2E09E274AF1C400BCEF90 /* matrixView.h */; };
-		2AE2E0A1274AF1C400BCEF90 /* matrixView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E0A0274AF1C400BCEF90 /* matrixView.m */; };
+		2AE2E0AB274AF27A00BCEF90 /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E0AA274AF27A00BCEF90 /* MatrixView.swift */; };
+		2AE2E0EB274C004D00BCEF90 /* GN-Koharuiro_Sunray.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE2E0EA274C004C00BCEF90 /* GN-Koharuiro_Sunray.ttf */; };
+		2AE2E108274C372B00BCEF90 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AE2E106274C372900BCEF90 /* thumbnail.png */; };
+		2AE2E109274C372C00BCEF90 /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AE2E107274C372B00BCEF90 /* thumbnail@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2AE2E09B274AF1C400BCEF90 /* matrix.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = matrix.saver; sourceTree = BUILT_PRODUCTS_DIR; };
-		2AE2E09E274AF1C400BCEF90 /* matrixView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrixView.h; sourceTree = "<group>"; };
-		2AE2E0A0274AF1C400BCEF90 /* matrixView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = matrixView.m; sourceTree = "<group>"; };
+		2AE2E09B274AF1C400BCEF90 /* thematrix.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = thematrix.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AE2E0A2274AF1C400BCEF90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AE2E0AA274AF27A00BCEF90 /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
+		2AE2E0EA274C004C00BCEF90 /* GN-Koharuiro_Sunray.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GN-Koharuiro_Sunray.ttf"; sourceTree = "<group>"; };
+		2AE2E106274C372900BCEF90 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
+		2AE2E107274C372B00BCEF90 /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,7 +36,7 @@
 		2AE2E091274AF1C400BCEF90 = {
 			isa = PBXGroup;
 			children = (
-				2AE2E09D274AF1C400BCEF90 /* matrix */,
+				2AE2E09D274AF1C400BCEF90 /* thematrix */,
 				2AE2E09C274AF1C400BCEF90 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,19 +44,21 @@
 		2AE2E09C274AF1C400BCEF90 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2AE2E09B274AF1C400BCEF90 /* matrix.saver */,
+				2AE2E09B274AF1C400BCEF90 /* thematrix.saver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2AE2E09D274AF1C400BCEF90 /* matrix */ = {
+		2AE2E09D274AF1C400BCEF90 /* thematrix */ = {
 			isa = PBXGroup;
 			children = (
-				2AE2E09E274AF1C400BCEF90 /* matrixView.h */,
-				2AE2E0A0274AF1C400BCEF90 /* matrixView.m */,
+				2AE2E106274C372900BCEF90 /* thumbnail.png */,
+				2AE2E107274C372B00BCEF90 /* thumbnail@2x.png */,
 				2AE2E0A2274AF1C400BCEF90 /* Info.plist */,
+				2AE2E0AA274AF27A00BCEF90 /* MatrixView.swift */,
+				2AE2E0EA274C004C00BCEF90 /* GN-Koharuiro_Sunray.ttf */,
 			);
-			path = matrix;
+			path = thematrix;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -62,16 +68,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AE2E09F274AF1C400BCEF90 /* matrixView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2AE2E09A274AF1C400BCEF90 /* matrix */ = {
+		2AE2E09A274AF1C400BCEF90 /* thematrix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AE2E0A5274AF1C400BCEF90 /* Build configuration list for PBXNativeTarget "matrix" */;
+			buildConfigurationList = 2AE2E0A5274AF1C400BCEF90 /* Build configuration list for PBXNativeTarget "thematrix" */;
 			buildPhases = (
 				2AE2E096274AF1C400BCEF90 /* Headers */,
 				2AE2E097274AF1C400BCEF90 /* Sources */,
@@ -82,9 +87,9 @@
 			);
 			dependencies = (
 			);
-			name = matrix;
+			name = thematrix;
 			productName = matrix;
-			productReference = 2AE2E09B274AF1C400BCEF90 /* matrix.saver */;
+			productReference = 2AE2E09B274AF1C400BCEF90 /* thematrix.saver */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -97,10 +102,11 @@
 				TargetAttributes = {
 					2AE2E09A274AF1C400BCEF90 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
-			buildConfigurationList = 2AE2E095274AF1C400BCEF90 /* Build configuration list for PBXProject "matrix" */;
+			buildConfigurationList = 2AE2E095274AF1C400BCEF90 /* Build configuration list for PBXProject "thematrix" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,7 +119,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2AE2E09A274AF1C400BCEF90 /* matrix */,
+				2AE2E09A274AF1C400BCEF90 /* thematrix */,
 			);
 		};
 /* End PBXProject section */
@@ -123,6 +129,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AE2E108274C372B00BCEF90 /* thumbnail.png in Resources */,
+				2AE2E0EB274C004D00BCEF90 /* GN-Koharuiro_Sunray.ttf in Resources */,
+				2AE2E109274C372C00BCEF90 /* thumbnail@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AE2E0A1274AF1C400BCEF90 /* matrixView.m in Sources */,
+				2AE2E0AB274AF27A00BCEF90 /* MatrixView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,12 +263,20 @@
 		2AE2E0A6274AF1C400BCEF90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = matrix/Info.plist;
+				INFOPLIST_FILE = thematrix/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				PRODUCT_BUNDLE_IDENTIFIER = lukexor.matrix;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lukexor.thematrix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Debug;
@@ -267,12 +284,19 @@
 		2AE2E0A7274AF1C400BCEF90 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = matrix/Info.plist;
+				INFOPLIST_FILE = thematrix/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				PRODUCT_BUNDLE_IDENTIFIER = lukexor.matrix;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lukexor.thematrix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Release;
@@ -280,7 +304,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2AE2E095274AF1C400BCEF90 /* Build configuration list for PBXProject "matrix" */ = {
+		2AE2E095274AF1C400BCEF90 /* Build configuration list for PBXProject "thematrix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AE2E0A3274AF1C400BCEF90 /* Debug */,
@@ -289,7 +313,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AE2E0A5274AF1C400BCEF90 /* Build configuration list for PBXNativeTarget "matrix" */ = {
+		2AE2E0A5274AF1C400BCEF90 /* Build configuration list for PBXNativeTarget "thematrix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2AE2E0A6274AF1C400BCEF90 /* Debug */,
