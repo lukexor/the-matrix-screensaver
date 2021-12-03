@@ -2,7 +2,7 @@ import ScreenSaver
 
 var GLYPHS: [String] = ["0", "1", "2", "3", "4", "5", "7", "8", "9", "Z", " ", ":", ".", "\"", "-", "+", "*", ";", "|", "_", "╌", "*", "=", "ç", "<", ">", "¦"]
 
-let FONT = NSFont(name: "GN-Koharuiro_Sunray", size: 24)!
+var FONT = NSFont(name: "GN-Koharuiro_Sunray", size: 24)
 let HEIGHT: Int = 15
 let WIDTH: Int = 15
 
@@ -23,7 +23,7 @@ struct Glyph {
             self.value.setString(self.randomGlyph())
         }
         self.value.draw(at: NSPoint(x: x, y: y), withAttributes: [
-            .font: FONT,
+            .font: FONT!,
             .foregroundColor: color,
         ])
     }
@@ -125,11 +125,11 @@ struct Matrix {
 }
 
 func registerCustomFonts() {
-    let paths = Bundle.main.paths(forResourcesOfType: "ttf", inDirectory: ".")
+    let paths = Bundle.main.paths(forResourcesOfType: "ttf", inDirectory: "")
     for path in paths {
         let fontUrl = NSURL(fileURLWithPath: path)
         var errorRef: Unmanaged<CFError>?
-        CTFontManagerRegisterFontsForURL(fontUrl, .process, &errorRef)
+        CTFontManagerRegisterFontsForURL(fontUrl, .persistent, &errorRef)
         if (errorRef != nil) {
             let error = errorRef!.takeRetainedValue()
             print("Error registering custom font: \(error)")
@@ -144,7 +144,7 @@ class MatrixView: ScreenSaverView {
         super.init(frame: frame, isPreview: isPreview)
         registerCustomFonts()
         self.matrix = Matrix.init(width: frame.width, height: frame.height)
-        animationTimeInterval = 1.0/30.0
+        animationTimeInterval = 1.0/60.0
     }
     
     override var isFlipped: Bool {
