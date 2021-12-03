@@ -4,6 +4,7 @@ var GLYPHS: [String] = ["0", "1", "2", "3", "4", "5", "7", "8", "9", "Z", " ", "
 
 var FONT = NSFont(name: "GN-Koharuiro_Sunray", size: 24)
 let HEIGHT: Int = 15
+let HEIGHTF: CGFloat = 15.0
 let WIDTH: Int = 15
 
 struct Glyph {
@@ -45,13 +46,13 @@ struct Stream {
 
     init(x: CGFloat, height: CGFloat) {
         self.x = x
-        self.y = SSRandomFloatBetween(-500, -100) // START RANGE
+        self.y = SSRandomFloatBetween(-300, -100) // START RANGE
         self.max_height = height;
         self.randomize()
     }
 
     mutating func randomize() {
-        self.speed = 2 * SSRandomFloatBetween(2, 9) // SPEED RANGE
+        self.speed = SSRandomFloatBetween(5, 15) // SPEED RANGE
         if SSRandomIntBetween(0, 100) <= self.HIGHLIGHT_PROB {
             self.highlight = true;
         }
@@ -63,7 +64,7 @@ struct Stream {
     }
 
     func shouldSpawn() -> Bool {
-        let height_threshold = SSRandomFloatBetween(100, 250) // SHOULD SPAWN RANGE
+        let height_threshold = SSRandomFloatBetween(300, 450) // SHOULD SPAWN RANGE
         return !self.spawned && (self.y - self.height) > height_threshold
     }
 
@@ -71,14 +72,17 @@ struct Stream {
         self.spawned = true;
         var stream = Self.init(x: self.x, height: self.max_height)
         stream.speed = self.speed
-        stream.y = SSRandomFloatBetween(-300, -100) // SPAWN RANGE
+        stream.y = SSRandomFloatBetween(-100, -10) // SPAWN RANGE
         return stream
     }
 
-    mutating func draw() {
+    mutating func draw(_ height: CGFloat) {
         self.y += self.speed
         for (i, _) in self.glyphs.enumerated() {
-            let y = self.y - CGFloat(i * HEIGHT)
+            let y = self.y - CGFloat(i) * HEIGHTF
+            if y < 0.0 - HEIGHTF || y > height {
+                continue
+            }
             var color = self.color
             if i == 0 && self.highlight {
                 color = self.HIGHLIGHT
@@ -101,26 +105,23 @@ struct Matrix {
         self.width = width;
         self.height = height;
         let count = Int(self.width) / WIDTH
-        for i in 0...count {
+        for i in 0...count-1 {
             self.streams.append(Stream.init(x: CGFloat(i * WIDTH), height: height))
         }
     }
     
     mutating func onUpdate(_ rect: NSRect) {
-        NSColor.black.setFill()
-        rect.fill()
-        
-        self.new_streams.removeAll()
         self.streams.removeAll { (stream: Stream) -> Bool in
             return stream.y > self.height + stream.height
         }
         for (i, _) in self.streams.enumerated() {
-            self.streams[i].draw()
+            self.streams[i].draw(self.height)
             if self.streams[i].shouldSpawn() {
                 self.new_streams.append(self.streams[i].spawn())
             }
         }
         self.streams.append(contentsOf: self.new_streams)
+        self.new_streams.removeAll()
     }
 }
 
@@ -138,13 +139,16 @@ func registerCustomFonts() {
 }
 
 class MatrixView: ScreenSaverView {
-    private var matrix: Matrix = Matrix.init(width: 800, height: 600)
+    private var matrix: Matrix
+    private var transform: NSAffineTransform
     
     override init?(frame: NSRect, isPreview: Bool) {
-        super.init(frame: frame, isPreview: isPreview)
         registerCustomFonts()
-        self.matrix = Matrix.init(width: frame.width, height: frame.height)
-        animationTimeInterval = 1.0/60.0
+        matrix = Matrix.init(width: frame.width, height: frame.height)
+        transform = NSAffineTransform(transform: AffineTransform(translationByX: frame.width, byY: 0.0))
+        transform.scaleX(by: -1.0, yBy: 1.0)
+        
+        super.init(frame: frame, isPreview: isPreview)
     }
     
     override var isFlipped: Bool {
@@ -158,12 +162,8 @@ class MatrixView: ScreenSaverView {
     
     override func draw(_ rect: NSRect) {
         super.draw(rect)
-        
-        let xform = NSAffineTransform(transform: AffineTransform(translationByX: rect.width, byY: 0.0))
-        xform.scaleX(by: -1.0, yBy: 1.0)
-        xform.concat()
-    
-        self.matrix.onUpdate(bounds)
+        transform.concat()
+        matrix.onUpdate(bounds)
     }
     
     override func animateOneFrame() {
