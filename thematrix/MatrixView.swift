@@ -1,30 +1,29 @@
 import ScreenSaver
 
-var GLYPHS: [String] = ["0", "1", "2", "3", "4", "5", "7", "8", "9", "Z", " ", ":", ".", "\"", "-", "+", "*", ";", "|", "_", "╌", "*", "=", "ç", "<", ">", "¦"]
+var GLYPHS: [NSMutableString] = ["0", "1", "2", "3", "4", "5", "7", "8", "9", "Z", " ", ":", ".", "\"", "-", "+", "*", ";", "|", "_", "╌", "*", "=", "ç", "<", ">", "¦"]
 
 var FONT = NSFont(name: "GN-Koharuiro_Sunray", size: 24)
-let HEIGHT: Int = 15
-let HEIGHTF: CGFloat = 15.0
-let WIDTH: Int = 15
+var SIZE: Int = 15
+var SPEED_MIN: CGFloat = 150
+var SPEED_MAX: CGFloat = 450
+
+func randomGlyph() -> NSMutableString {
+    return GLYPHS[Int(SSRandomIntBetween(0, Int32(GLYPHS.count - 1)))]
+}
 
 struct Glyph {
-    var value: NSMutableString = ""
+    var value: NSMutableString = randomGlyph()
     let MORPH_PROB: Int = 10
-
-    init() {
-        self.value.setString(self.randomGlyph())
-    }
-
-    func randomGlyph() -> String {
-        return GLYPHS[Int(SSRandomIntBetween(0, Int32(GLYPHS.count - 1)))]
-    }
-
-    mutating func draw(x: CGFloat, y: CGFloat, color: NSColor) {
-        if SSRandomIntBetween(0, 1000) <= self.MORPH_PROB {
-            self.value.setString(self.randomGlyph())
+    
+    mutating func update() {
+        if SSRandomIntBetween(0, 3000) <= MORPH_PROB {
+            value = randomGlyph()
         }
-        self.value.draw(at: NSPoint(x: x, y: y), withAttributes: [
-            .font: FONT!,
+    }
+
+    func draw(x: CGFloat, y: CGFloat, color: NSColor) {
+        value.draw(at: NSPoint(x: x, y: y), withAttributes: [
+            .font: FONT ?? NSFont(name: "Courier New", size: 24)!,
             .foregroundColor: color,
         ])
     }
@@ -46,48 +45,51 @@ struct Stream {
 
     init(x: CGFloat, height: CGFloat) {
         self.x = x
-        self.y = SSRandomFloatBetween(-300, -100) // START RANGE
-        self.max_height = height;
-        self.randomize()
-    }
-
-    mutating func randomize() {
-        self.speed = SSRandomFloatBetween(5, 15) // SPEED RANGE
-        if SSRandomIntBetween(0, 100) <= self.HIGHLIGHT_PROB {
-            self.highlight = true;
+        y = SSRandomFloatBetween(-1000, -20) // START RANGE
+        max_height = height;
+        speed = SSRandomFloatBetween(SPEED_MIN, SPEED_MAX)
+        if SSRandomIntBetween(0, 100) <= HIGHLIGHT_PROB {
+            highlight = true;
         }
-        let count = Int(SSRandomIntBetween(1, 25)) // HEIGHT RANGE
-        self.height = CGFloat(count * HEIGHT)
+        let count = Int(SSRandomIntBetween(1, 30)) // HEIGHT RANGE
+        self.height = CGFloat(count * SIZE)
+        glyphs.reserveCapacity(count)
         for _ in 0...count {
-            self.glyphs.append(Glyph.init())
+            glyphs.append(Glyph.init())
         }
     }
 
     func shouldSpawn() -> Bool {
-        let height_threshold = SSRandomFloatBetween(300, 450) // SHOULD SPAWN RANGE
-        return !self.spawned && (self.y - self.height) > height_threshold
+        let height_threshold = SSRandomFloatBetween(0.3 * max_height, 0.4 * max_height) // SHOULD SPAWN RANGE
+        return !spawned && (y - height) > height_threshold
     }
 
     mutating func spawn() -> Self {
-        self.spawned = true;
-        var stream = Self.init(x: self.x, height: self.max_height)
-        stream.speed = self.speed
+        spawned = true;
+        var stream = Stream(x: x, height: max_height)
+        stream.speed = speed
         stream.y = SSRandomFloatBetween(-100, -10) // SPAWN RANGE
         return stream
     }
+    
+    mutating func update(_ delta_time: DateInterval) {
+        y += delta_time.duration * speed
+        for (i, _) in glyphs.enumerated() {
+            glyphs[i].update()
+        }
+    }
 
-    mutating func draw(_ height: CGFloat) {
-        self.y += self.speed
-        for (i, _) in self.glyphs.enumerated() {
-            let y = self.y - CGFloat(i) * HEIGHTF
-            if y < 0.0 - HEIGHTF || y > height {
+    func draw(_ height: CGFloat) {
+        for (i, glyph) in glyphs.enumerated() {
+            let y = y - CGFloat(i * SIZE)
+            if y < 0.0 - CGFloat(SIZE) || y > height {
                 continue
             }
-            var color = self.color
-            if i == 0 && self.highlight {
-                color = self.HIGHLIGHT
+            var color = color
+            if i == 0 && highlight {
+                color = HIGHLIGHT
             }
-            self.glyphs[i].draw(x: self.x, y: y, color: color)
+            glyph.draw(x: x, y: y, color: color)
         }
     }
 }
@@ -97,31 +99,43 @@ struct Matrix {
     var new_streams: [Stream] = []
     var width: CGFloat = 0
     var height: CGFloat = 0
+    var last_time: Date = Date()
 
     init(width: CGFloat, height: CGFloat) {
         for i in 0...95 {
-            GLYPHS.append(String(UnicodeScalar(0x30A0 + i)!))
+            GLYPHS.append(NSMutableString(string: String(UnicodeScalar(0x30A0 + i)!)))
         }
         self.width = width;
         self.height = height;
-        let count = Int(self.width) / WIDTH
+        let count = Int(self.width) / SIZE
+        streams.reserveCapacity(count + 200)
+        new_streams.reserveCapacity(200)
         for i in 0...count-1 {
-            self.streams.append(Stream.init(x: CGFloat(i * WIDTH), height: height))
+            streams.append(Stream.init(x: CGFloat(i * SIZE), height: height))
         }
     }
-    
-    mutating func onUpdate(_ rect: NSRect) {
-        self.streams.removeAll { (stream: Stream) -> Bool in
-            return stream.y > self.height + stream.height
-        }
-        for (i, _) in self.streams.enumerated() {
-            self.streams[i].draw(self.height)
-            if self.streams[i].shouldSpawn() {
-                self.new_streams.append(self.streams[i].spawn())
+
+    mutating func update() {
+        let now = Date()
+        let time_since_last = DateInterval(start: last_time, end: now)
+        last_time = now
+        for (i, _) in streams.enumerated() {
+            streams[i].update(time_since_last)
+            if streams[i].shouldSpawn() {
+                new_streams.append(streams[i].spawn())
             }
         }
-        self.streams.append(contentsOf: self.new_streams)
-        self.new_streams.removeAll()
+        streams.removeAll { (stream: Stream) -> Bool in
+            return stream.y > height + stream.height
+        }
+        streams.append(contentsOf: new_streams)
+        new_streams.removeAll()
+    }
+    
+    func draw() {
+        streams.forEach { stream in
+            stream.draw(height)
+        }
     }
 }
 
@@ -139,18 +153,21 @@ func registerCustomFonts() {
 }
 
 class MatrixView: ScreenSaverView {
-    private var matrix: Matrix
-    private var transform: NSAffineTransform
-    
+    private var matrix: Matrix?
+    private var transform: NSAffineTransform?
+
     override init?(frame: NSRect, isPreview: Bool) {
-        registerCustomFonts()
-        matrix = Matrix.init(width: frame.width, height: frame.height)
-        transform = NSAffineTransform(transform: AffineTransform(translationByX: frame.width, byY: 0.0))
-        transform.scaleX(by: -1.0, yBy: 1.0)
-        
         super.init(frame: frame, isPreview: isPreview)
+        if (isPreview) {
+            FONT = NSFont(name: "GN-Koharuiro_Sunray", size: 12)
+            SIZE = 8
+            SPEED_MIN = 50
+            SPEED_MAX = 300
+        }
+        registerCustomFonts()
+        animationTimeInterval = 1.0/24.0;
     }
-    
+
     override var isFlipped: Bool {
         get { return true }
     }
@@ -160,14 +177,40 @@ class MatrixView: ScreenSaverView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: NSRect) {
-        super.draw(rect)
-        transform.concat()
-        matrix.onUpdate(bounds)
+    override func startAnimation() {
+        super.startAnimation()
+        matrix = Matrix.init(width: frame.width, height: frame.height)
+        transform = NSAffineTransform(transform: AffineTransform(translationByX: frame.width, byY: 0.0))
+        transform?.scaleX(by: -1.0, yBy: 1.0)
     }
     
+    override func stopAnimation() {
+        super.stopAnimation()
+        matrix = nil
+        transform = nil
+    }
+    
+    override func draw(_ rect: NSRect) {
+        super.draw(rect)
+        transform?.concat()
+        matrix?.draw()
+    }
+    
+    override var isOpaque: Bool {
+        get { return true }
+    }
+
     override func animateOneFrame() {
         super.animateOneFrame()
+        matrix?.update()
         setNeedsDisplay(bounds)
+    }
+    
+    override var hasConfigureSheet: Bool {
+        get { return false }
+    }
+    
+    override var configureSheet: NSWindow? {
+        get { return nil }
     }
 }

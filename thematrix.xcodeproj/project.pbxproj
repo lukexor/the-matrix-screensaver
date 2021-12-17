@@ -20,6 +20,20 @@
 		2AE2E0EA274C004C00BCEF90 /* GN-Koharuiro_Sunray.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GN-Koharuiro_Sunray.ttf"; sourceTree = "<group>"; };
 		2AE2E106274C372900BCEF90 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		2AE2E107274C372B00BCEF90 /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
+		9187E89D276C132100EB8822 /* thematrix.saver.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = thematrix.saver.dSYM; sourceTree = "<group>"; };
+		9187E89E276C132100EB8822 /* thematrix.saver */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = thematrix.saver; sourceTree = "<group>"; };
+		9187E8A0276C132100EB8822 /* arm64-apple-macos.swiftdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "arm64-apple-macos.swiftdoc"; sourceTree = "<group>"; };
+		9187E8A1276C132100EB8822 /* x86_64-apple-macos.swiftdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "x86_64-apple-macos.swiftdoc"; sourceTree = "<group>"; };
+		9187E8A2276C132100EB8822 /* x86_64.swiftdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = x86_64.swiftdoc; sourceTree = "<group>"; };
+		9187E8A3276C132100EB8822 /* arm64.swiftmodule */ = {isa = PBXFileReference; lastKnownFileType = file; path = arm64.swiftmodule; sourceTree = "<group>"; };
+		9187E8A4276C132100EB8822 /* arm64-apple-macos.swiftmodule */ = {isa = PBXFileReference; lastKnownFileType = file; path = "arm64-apple-macos.swiftmodule"; sourceTree = "<group>"; };
+		9187E8A5276C132100EB8822 /* x86_64.swiftmodule */ = {isa = PBXFileReference; lastKnownFileType = file; path = x86_64.swiftmodule; sourceTree = "<group>"; };
+		9187E8A7276C132100EB8822 /* x86_64.swiftsourceinfo */ = {isa = PBXFileReference; lastKnownFileType = file; path = x86_64.swiftsourceinfo; sourceTree = "<group>"; };
+		9187E8A8276C132100EB8822 /* x86_64-apple-macos.swiftsourceinfo */ = {isa = PBXFileReference; lastKnownFileType = file; path = "x86_64-apple-macos.swiftsourceinfo"; sourceTree = "<group>"; };
+		9187E8A9276C132100EB8822 /* arm64-apple-macos.swiftsourceinfo */ = {isa = PBXFileReference; lastKnownFileType = file; path = "arm64-apple-macos.swiftsourceinfo"; sourceTree = "<group>"; };
+		9187E8AA276C132100EB8822 /* arm64.swiftsourceinfo */ = {isa = PBXFileReference; lastKnownFileType = file; path = arm64.swiftsourceinfo; sourceTree = "<group>"; };
+		9187E8AB276C132100EB8822 /* x86_64-apple-macos.swiftmodule */ = {isa = PBXFileReference; lastKnownFileType = file; path = "x86_64-apple-macos.swiftmodule"; sourceTree = "<group>"; };
+		9187E8AC276C132100EB8822 /* arm64.swiftdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = arm64.swiftdoc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +50,7 @@
 		2AE2E091274AF1C400BCEF90 = {
 			isa = PBXGroup;
 			children = (
+				9187E89B276C132100EB8822 /* Products */,
 				2AE2E09D274AF1C400BCEF90 /* thematrix */,
 				2AE2E09C274AF1C400BCEF90 /* Products */,
 			);
@@ -59,6 +74,52 @@
 				2AE2E0EA274C004C00BCEF90 /* GN-Koharuiro_Sunray.ttf */,
 			);
 			path = thematrix;
+			sourceTree = "<group>";
+		};
+		9187E89B276C132100EB8822 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9187E89C276C132100EB8822 /* Release */,
+			);
+			name = Products;
+			path = "../../Library/Developer/Xcode/DerivedData/thematrix-flqnbyvpzhlpdcfwbhlstirgtrkc/Build/Products";
+			sourceTree = "<group>";
+		};
+		9187E89C276C132100EB8822 /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				9187E89D276C132100EB8822 /* thematrix.saver.dSYM */,
+				9187E89E276C132100EB8822 /* thematrix.saver */,
+				9187E89F276C132100EB8822 /* thematrix.swiftmodule */,
+			);
+			path = Release;
+			sourceTree = "<group>";
+		};
+		9187E89F276C132100EB8822 /* thematrix.swiftmodule */ = {
+			isa = PBXGroup;
+			children = (
+				9187E8A0276C132100EB8822 /* arm64-apple-macos.swiftdoc */,
+				9187E8A1276C132100EB8822 /* x86_64-apple-macos.swiftdoc */,
+				9187E8A2276C132100EB8822 /* x86_64.swiftdoc */,
+				9187E8A3276C132100EB8822 /* arm64.swiftmodule */,
+				9187E8A4276C132100EB8822 /* arm64-apple-macos.swiftmodule */,
+				9187E8A5276C132100EB8822 /* x86_64.swiftmodule */,
+				9187E8A6276C132100EB8822 /* Project */,
+				9187E8AB276C132100EB8822 /* x86_64-apple-macos.swiftmodule */,
+				9187E8AC276C132100EB8822 /* arm64.swiftdoc */,
+			);
+			path = thematrix.swiftmodule;
+			sourceTree = "<group>";
+		};
+		9187E8A6276C132100EB8822 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				9187E8A7276C132100EB8822 /* x86_64.swiftsourceinfo */,
+				9187E8A8276C132100EB8822 /* x86_64-apple-macos.swiftsourceinfo */,
+				9187E8A9276C132100EB8822 /* arm64-apple-macos.swiftsourceinfo */,
+				9187E8AA276C132100EB8822 /* arm64.swiftsourceinfo */,
+			);
+			path = Project;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
